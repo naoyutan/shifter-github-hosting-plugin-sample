@@ -1,0 +1,5 @@
+{
+    "require": {
+       "yuzuru-s/parse-rss": "1.0.*"
+    }
+}
