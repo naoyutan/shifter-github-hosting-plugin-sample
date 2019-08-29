@@ -18,7 +18,7 @@ jobs:
         export TAGNAME=$(jq --raw-output .ref "$GITHUB_EVENT_PATH")
         sed -i -e "s/{release version}/${TAGNAME}/g" shifter-github-hosting-plugin-sample.php
     - name: create archive
-      run: zip -r shifter-github-hosting-plugin-sample.zip *.zip *.md vendor/*
+      run: zip -r shifter-github-hosting-plugin-sample.zip *.php *.md vendor/*
     - name: upload
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -27,4 +27,4 @@ jobs:
         export CREATE_EVENT_REF_TYPE=$(jq --raw-output .ref_type "$GITHUB_EVENT_PATH")
         export TAGNAME=$(jq --raw-output .ref "$GITHUB_EVENT_PATH")
         go get -u github.com/tcnksm/ghr
-        ${GOPATH}/bin/ghr -prerelease -replace ${TAGNAME} shifter-github-hosting-plugin-sample.zip
+        ${GOPATH}/bin/ghr -replace ${TAGNAME} shifter-github-hosting-plugin-sample.zip
