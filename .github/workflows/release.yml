@@ -49,7 +49,7 @@ jobs:
     - name: create archive
       env:
         PACKAGE_NAME: "shifter-github-hosting-plugin-sample"
-        FILES_TO_ARCIVE: "*.php *.md vendor/*"
+        FILES_TO_ARCIVE: "*.php *.md LICENSE vendor/*"
       run: zip -r ${PACKAGE_NAME}.zip ${FILES_TO_ARCIVE}
 
     # upload zip arvive by ghr.
