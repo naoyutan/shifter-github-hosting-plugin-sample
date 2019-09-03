@@ -1,13 +1,22 @@
-# Workflow Document: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+# This is a sample workflows file for GitHub Actions.
+#
+# This workflow detects a tag, creates a package with the tag, then automatically uploads the package to GitHub releases.
+#
+# At first, please change PACKAGE_NAME to your package name.
+# Also, if you need:
+# - change FILES_TO_ARCIVE
+# - comment out the composer install section
+# - uncomment npm install section
 
-# This workflow detects a tag push to Github, it will automatically upload the package to github releases.
+# Workflow Document: https://help.github.com/en/articles/workflow-syntax-for-github-actions
+#
 name: release
 
 # see: https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
 on:
   create:
     tags: []
-    # - v*.*.*  # to use filters. wildcard characters supported.
+    # - v*.*.*  # to use filters. wildcard characters are supported.
 
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions#jobs
 jobs:
@@ -25,7 +34,7 @@ jobs:
     - uses: actions/checkout@v1
 
 
-    # install modules by composer. remove this step it if no needed.
+    # install modules by composer. remove this step it if you don't need.
     - name: composer install
       run: composer install
 
@@ -44,8 +53,8 @@ jobs:
         export TAGNAME=$(jq --raw-output .ref "$GITHUB_EVENT_PATH")
         sed -i -e "s/{release version}/${TAGNAME}/g" ${PACKAGE_NAME}.php
 
-    # create zip acrive for install to WordPress.
-    # please edit FILES_TO_ARCIVE to suit your project.
+    # create a zip acrive for installing to WordPress.
+    # please change FILES_TO_ARCIVE to your project name.
     - name: create archive
       env:
         PACKAGE_NAME: "shifter-github-hosting-plugin-sample"
